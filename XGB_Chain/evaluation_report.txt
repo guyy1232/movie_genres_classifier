@@ -1,0 +1,80 @@
+Threshold: 0.1
+Humming loss: 0.38403880070546736
+
+              precision    recall  f1-score   support
+
+      Action       0.44      0.75      0.56       830
+      Comedy       0.38      0.96      0.55      1514
+       Drama       0.62      0.99      0.76      2715
+Romance Film       0.31      0.87      0.46       953
+    Thriller       0.35      0.88      0.50       960
+
+   micro avg       0.44      0.92      0.60      6972
+   macro avg       0.42      0.89      0.57      6972
+weighted avg       0.47      0.92      0.61      6972
+ samples avg       0.46      0.94      0.59      6972
+
+Threshold: 0.2
+Humming loss: 0.27420634920634923
+
+              precision    recall  f1-score   support
+
+      Action       0.54      0.55      0.54       830
+      Comedy       0.46      0.87      0.60      1514
+       Drama       0.65      0.97      0.78      2715
+Romance Film       0.43      0.69      0.53       953
+    Thriller       0.47      0.75      0.58       960
+
+   micro avg       0.53      0.83      0.65      6972
+   macro avg       0.51      0.77      0.61      6972
+weighted avg       0.54      0.83      0.65      6972
+ samples avg       0.57      0.85      0.65      6972
+
+Threshold: 0.3
+Humming loss: 0.23170194003527336
+
+              precision    recall  f1-score   support
+
+      Action       0.61      0.46      0.52       830
+      Comedy       0.55      0.72      0.62      1514
+       Drama       0.66      0.93      0.78      2715
+Romance Film       0.49      0.57      0.53       953
+    Thriller       0.56      0.65      0.60       960
+
+   micro avg       0.60      0.74      0.66      6972
+   macro avg       0.58      0.66      0.61      6972
+weighted avg       0.60      0.74      0.66      6972
+ samples avg       0.64      0.77      0.66      6972
+
+Threshold: 0.4
+Humming loss: 0.21666666666666667
+
+              precision    recall  f1-score   support
+
+      Action       0.64      0.37      0.47       830
+      Comedy       0.63      0.55      0.58      1514
+       Drama       0.68      0.90      0.78      2715
+Romance Film       0.55      0.44      0.49       953
+    Thriller       0.62      0.54      0.58       960
+
+   micro avg       0.65      0.65      0.65      6972
+   macro avg       0.62      0.56      0.58      6972
+weighted avg       0.64      0.65      0.63      6972
+ samples avg       0.68      0.68      0.64      6972
+
+Threshold: 0.5
+Humming loss: 0.2119488536155203
+
+              precision    recall  f1-score   support
+
+      Action       0.66      0.31      0.42       830
+      Comedy       0.70      0.42      0.52      1514
+       Drama       0.70      0.86      0.77      2715
+Romance Film       0.60      0.33      0.43       953
+    Thriller       0.68      0.46      0.55       960
+
+   micro avg       0.69      0.57      0.62      6972
+   macro avg       0.67      0.48      0.54      6972
+weighted avg       0.68      0.57      0.60      6972
+ samples avg       0.70      0.61      0.62      6972
+
