@@ -14,11 +14,6 @@ MOVIE_FIELDS = {
 
 
 def read_json_lines_file(path):
-    """
-    read the data from the raw json lines file, add missing fields and remove keys from dict type fields.
-    :param path:
-    :return:
-    """
     with open(path, 'r') as file:
         lines = file.readlines()
     json_lines = [json.loads(line) for line in lines]

@@ -1,3 +1,87 @@
+# Movie Genres prediction
+You can use my application to find your movie genres.
+All you need to do is entering my website:
+https://moviegenresclassifier.streamlit.app/
+
+choose your preffered model:
+
+![model selection image](assets/model_selection.png)
+
+Enter the movie summary:
+
+![movie summary](assets/movie_plot_sammary_textbox.png)
+
+Hit "Predict":
+
+![predict btn](assets/predict.png)
+
+### Project Overview: Milestones
+
+
+1. **Data Initial Preprocessing**: This is the first stage of the process where the structure of the samples is understood, the data is converted into a more efficient CSV format, and "blanks" in the data (missing fields for samples) are filled with empty values.
+
+2. **Exploratory Data Analysis (EDA)**: During this phase, the data is scrutinized to discover patterns and common features, leading to a comprehensive understanding of the data and guiding the following steps.
+
+3. **Genre Focus Determination**: Based on the insights from the EDA, the most frequently occurring genres are pinpointed for prediction. Two methods were tested for this purpose: the Elbow Method, which utilizes K-means clustering, and the Statistical Significance Method.
+
+4. **Data Preprocessing**: The clean and filter data pipeline is built to ready the data for training. The data is then vectorized using TF-IDF and multi-label binarization, equipping it for the classification task.
+
+5. **Model Training**: The models are trained using both a Machine Learning approach and a Transformer-based approach.
+
+6. **Model Evaluation**: The models are evaluated using precision, recall, and F1 scores over different thresholds to measure their performance.
+
+7. **Model Deployment**: Finally, the models are deployed for inferencing, ready to predict movie genres based on provided input data.
+
+## Model Comparison - ML approach
+
+Two different multi-label text classification models were evaluated in this project - an XGBoost model with a Classifier Chain and a Stochastic Gradient Descent (SGD) model with a One vs Rest classifier.
+
+Based on the evaluation reports generated using different thresholds, the following observations can be made:
+
+### XGBoost Model with Classifier Chain
+This model demonstrates strong performance across varying thresholds. However, as the threshold increases, we observe a decrease in recall while precision improves. This indicates that the model becomes more confident in its predictions but at the expense of missing some true positives.
+
+### SGD Model with One Vs Rest Classifier
+Similar to the XGBoost model, the SGD model also shows an improvement in precision with increasing threshold, but with a decrease in recall. The trend suggests that this model may also prioritize confident predictions over capturing all true positives.
+
+In general, both models exhibit similar trends across thresholds. The choice between these models could be influenced by specific use cases. If high confidence in predictions is more desirable, a higher threshold can be chosen at the cost of potentially missing some positive instances. On the other hand, if the aim is to capture as many positive instances as possible, a lower threshold might be more appropriate, albeit with less confidence in the predictions.
+
+
+## Exploratory Data Analysis Notebook: exploratory_data_analysis.ipynb
+
+This Jupyter notebook contains the Exploratory Data Analysis (EDA) performed on the movie dataset. The EDA is an essential step in the project as it helps to understand the structure and properties of the data before building the machine learning models.
+
+### Data Analysis
+
+The main part of the notebook is dedicated to analyzing the data. This includes:
+
+- **Visualizations**: The notebook uses various types of plots to visualize the data and gain insights. For example, bar plots, histograms, and pie charts might be used to show the distribution of categorical data.
+
+- **Statistical Analysis**: The notebook performs statistical analysis on the data
+
+- **Multi-label Analysis**: Since the task is a multi-label classification problem (predicting the genres of a movie), the notebook analyzes the distribution of genres across the movies and visualizes this information.
+
+
+## Finding Outliers in Genres Notebook: find_outlayers_genres.ipynb
+
+This Jupyter notebook contains the analysis performed on the movie dataset to find outlier genres. The goal of this analysis is to identify the genres that are not commonly used in the dataset, as they might impact the performance of the multi-label classification model.
+
+### Genre Distribution Analysis
+
+The notebook contains a thorough analysis of the genre distribution in the dataset. This includes:
+
+- **Counting Genre Frequencies**: The notebook counts the frequency of each genre in the dataset to understand the distribution of genres.
+
+- **Visualizing Genre Distribution**: The notebook visualizes the genre distribution using bar plots and line plots to better understand the skewness in the genre distribution.
+
+### Outlier Detection
+
+The notebook performs outlier detection on the genre distribution. This is an essential step to identify the genres that are not frequently used in the dataset (outliers). The notebook uses techniques like:
+
+- **Elbow Method**: This method is used to find a point in the distribution of genres after which the frequency of genres drops drastically. This point can be used as a threshold to filter out the outlier genres.
+
+- **Statistical Analysis**: The notebook also performs statistical analysis, like calculating z-scores, to identify outliers.
+
 # Data Preprocessing
 
 ## Json lines to CSV Conversion
@@ -77,60 +161,6 @@ The `inference_model_skl` method takes a plot summary (or a list of plot summari
 
 The `inference_model_hf` method takes a plot summary and returns the genres predicted by a Hugging Face model with a probability higher than a given threshold. The model, tokenizer, MultiLabelBinarizer, plot summary, and threshold are all inputs to the method.
 
-## Exploratory Data Analysis Notebook: exploratory_data_analysis.ipynb
-
-This Jupyter notebook contains the Exploratory Data Analysis (EDA) performed on the movie dataset. The EDA is an essential step in the project as it helps to understand the structure and properties of the data before building the machine learning models.
-
-### Data Loading and Examination
-
-The notebook begins by loading the data from a CSV file into a Pandas DataFrame. It then displays the first few rows of the DataFrame to get a sense of what the data looks like.
-
-### Data Cleaning
-
-The notebook includes steps for data cleaning. These may include removing duplicates, handling missing values, and data type conversions.
-
-### Data Analysis
-
-The main part of the notebook is dedicated to analyzing the data. This includes:
-
-- **Visualizations**: The notebook uses various types of plots to visualize the data and gain insights. For example, bar plots, histograms, and pie charts might be used to show the distribution of categorical data.
-
-- **Statistical Analysis**: The notebook performs statistical analysis on the data, calculating metrics such as mean, median, mode, and standard deviation.
-
-- **Text Analysis**: The notebook analyzes text data (such as the plot summary) using techniques like TF-IDF Vectorization.
-
-- **Multi-label Analysis**: Since the task is a multi-label classification problem (predicting the genres of a movie), the notebook analyzes the distribution of genres across the movies and visualizes this information.
-
-### Data Preprocessing for Modeling
-
-Finally, the notebook includes steps for data preprocessing in preparation for machine learning modeling. This includes encoding categorical variables, splitting the data into training and test sets, and other necessary preprocessing steps.
-
-This EDA notebook provides a comprehensive initial analysis of the data and forms the basis for the subsequent modeling steps in the project.
-
-
-## Finding Outliers in Genres Notebook: find_outlayers_genres.ipynb
-
-This Jupyter notebook contains the analysis performed on the movie dataset to find outlier genres. The goal of this analysis is to identify the genres that are not commonly used in the dataset, as they might impact the performance of the multi-label classification model.
-
-### Data Loading and Examination
-
-The notebook starts by loading the data from a CSV file into a Pandas DataFrame. It then displays the first few rows of the DataFrame to provide a sense of what the data looks like.
-
-### Genre Distribution Analysis
-
-The notebook contains a thorough analysis of the genre distribution in the dataset. This includes:
-
-- **Counting Genre Frequencies**: The notebook counts the frequency of each genre in the dataset to understand the distribution of genres.
-
-- **Visualizing Genre Distribution**: The notebook visualizes the genre distribution using bar plots and line plots to better understand the skewness in the genre distribution.
-
-### Outlier Detection
-
-The notebook performs outlier detection on the genre distribution. This is an essential step to identify the genres that are not frequently used in the dataset (outliers). The notebook uses techniques like:
-
-- **Elbow Method**: This method is used to find a point in the distribution of genres after which the frequency of genres drops drastically. This point can be used as a threshold to filter out the outlier genres.
-
-- **Statistical Analysis**: The notebook also performs statistical analysis, like calculating z-scores, to identify outliers.
 
 ### Data Filtering
 
@@ -141,10 +171,6 @@ This notebook provides a comprehensive analysis to identify and filter out outli
 ## Machine Learning Approach Notebook: ml_approach.ipynb
 
 This Jupyter notebook contains the machine learning approach for multi-label movie genre prediction based on movie plot summaries. The main machine learning model used in this approach is a OneVsRest classifier with a Linear Support Vector Machine (SVM) as the base estimator.
-
-### Data Loading and Examination
-
-The notebook starts by loading the data from a CSV file into a Pandas DataFrame. It then displays the first few rows of the DataFrame to provide a sense of what the data looks like.
 
 ### Data Preprocessing
 
@@ -176,14 +202,6 @@ This notebook provides a comprehensive implementation of the machine learning ap
 
 This Jupyter notebook contains the Transformer-based approach for multi-label movie genre prediction using movie plot summaries. The main model used in this approach is the BERT (Bidirectional Encoder Representations from Transformers) model, a pre-trained Transformer model.
 
-### Data Loading and Examination
-
-The notebook starts by loading the data from a CSV file into a Pandas DataFrame. It then displays the first few rows of the DataFrame to provide a sense of what the data looks like.
-
-### Data Preprocessing
-
-The notebook includes steps for data preprocessing. This includes converting genre labels into a binary matrix format using `MultiLabelBinarizer` and tokenizing the movie plot summaries using the BERT tokenizer.
-
 ### Model Training
 
 The notebook trains a BERT model for multi-label classification. Transformers, especially BERT, have been revolutionary in the field of Natural Language Processing due to their ability to capture the context of words in text data effectively.
@@ -196,13 +214,10 @@ The notebook evaluates the trained model using two metrics:
 
 - **F1 Score**: The F1 score is the harmonic mean of precision and recall and provides a balance between these two metrics. It is a common metric for evaluating classification models, including multi-label classifiers.
 
-### Threshold Optimization
-
-The notebook optimizes the threshold for making predictions from the model. This involves trying out different thresholds and evaluating the model's performance at each threshold to find the optimal one.
 
 ### Model Saving
 
-Finally, the notebook includes steps to save the trained model and the label binarizer for later use.
+Finally, the notebook includes steps to push the trained model to Hugging hub and save the label binarizer for later use.
 
 This notebook provides a comprehensive implementation of the Transformer-based approach for multi-label movie genre prediction, from data loading and preprocessing to model training, evaluation, and saving.
 

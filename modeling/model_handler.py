@@ -14,7 +14,6 @@ class ModelHandler:
             ('tfidf', TfidfVectorizer(stop_words='english', max_features=10000)),
             ('clf', clf)
         ])
-        # Train the classifier
         clf_pipeline.fit(inputs, labels)
         return clf_pipeline
 
