@@ -1,19 +1,25 @@
-# Movie Genres prediction
-You can use my application to find your movie genres.
-All you need to do is entering my website:
-https://moviegenresclassifier.streamlit.app/
+# Welcome to the Movie Genres Classifier! 🎬
 
-choose your preffered model:
+Ever wondered what genre a movie might be just based on its summary? You've come to the right place!
 
-![model selection image](assets/model_selection.png)
+Our app is as simple as it gets. Here's how you can use it:
 
-Enter the movie summary:
+1. Visit our website at [https://moviegenresclassifier.streamlit.app/](https://moviegenresclassifier.streamlit.app/)
 
-![movie summary](assets/movie_plot_sammary_textbox.png)
+2. Choose your preferred model. We offer two options for you to choose from:
 
-Hit "Predict":
+   ![Model selection image](assets/model_selection.png)
 
-![predict btn](assets/predict.png)
+3. Once you've chosen your model, type in your movie summary into the text box:
+
+   ![Movie summary](assets/movie_plot_sammary_textbox.png)
+
+4. Ready to find out the genre? Click the "Predict" button and voilà!
+
+   ![Predict button](assets/predict.png)
+
+Happy genre hunting! 🍿
+
 
 ### Project Overview: Milestones
 
@@ -28,13 +34,15 @@ Hit "Predict":
 
 5. **Model Training**: The models are trained using both a Machine Learning approach and a Transformer-based approach.
 
-6. **Model Evaluation**: The models are evaluated using precision, recall, and F1 scores over different thresholds to measure their performance.
+6. **Model Evaluation**: The models are evaluated using humming loss, precision, recall, and F1 scores over different thresholds to measure their performance.
 
 7. **Model Deployment**: Finally, the models are deployed for inferencing, ready to predict movie genres based on provided input data.
 
 ## Model Comparison - ML approach
 
 Two different multi-label text classification models were evaluated in this project - an XGBoost model with a Classifier Chain and a Stochastic Gradient Descent (SGD) model with a One vs Rest classifier.
+
+Evaluation results stored in "evaluation_report.txt" file under every save model directory.
 
 Based on the evaluation reports generated using different thresholds, the following observations can be made:
 
@@ -89,9 +97,6 @@ This script purpose is to preprocess the raw data and convert it into a usable f
 
 The script reads a .json file where each line is a separate JSON object, corresponding to a movie. Each JSON object has multiple fields, representing different characteristics of the movie. The fields include 'countries', 'feature_length', 'genres', 'languages', 'movie_box_office_revenue', 'plot_summary', 'release_date', and 'title'. 
 
-### read_json_lines_file function
-
-The `read_json_lines_file` function reads the raw .json file, and for each movie, it sets default values for any missing fields and transforms dictionary-type fields into list-type fields by extracting their values. 
 
 ### json_lines_to_csv function
 
@@ -99,20 +104,11 @@ After the raw data is processed, the `json_lines_to_csv` function is used to con
 
 In the main part of the script, the `read_json_lines_file` and `json_lines_to_csv` functions are called to process the raw data and save the result as a .csv file.
 
-**Note**: You should replace the `../data/train.json` and `../data/processed_data.csv` with the actual paths to your raw data file and the .csv file you want to create, respectively.
 ## Class: DataPreprocessor
 
 The `DataPreprocessor` class is a key part of the project, responsible for reading in the raw movie data and preprocessing it for further analysis and model training.
 
 The class is initialized with a `data_path` argument that specifies the location of the input CSV data file.
-
-### __post_init__ method
-
-The `__post_init__` method is automatically called after the class is initialized. It reads the data from the CSV file into a pandas DataFrame and makes a deep copy of the DataFrame for preprocessing.
-
-### filter_genre_list method
-
-The `filter_genre_list` method is a helper function that filters a list of genres and returns only the genres that are in the top_k_genres list.
 
 ### filter_genres method
 
@@ -127,46 +123,10 @@ The `filter_genres` method is used to preprocess the 'genres' column of the data
 
 The method takes as input the number k of top genres to consider, and returns the preprocessed DataFrame.
 
-**Note**: You should replace `self.data_path` with the actual path to your data file when initializing an instance of the `DataPreprocessor` class.
-
 ## Model Handling Class: ModelHandler
 
 The `ModelHandler` class is a part of the project that is responsible for training, evaluating, saving, loading, and performing inference with the machine learning models. The methods with "skl" suffixes are designed for models built with Scikit-learn, while the methods with "hf" suffixes are designed for models built with the Hugging Face library.
 
-### train_model_skl method
-
-The `train_model_skl` method trains a Scikit-learn classifier with the provided inputs and labels. The method constructs a pipeline that first transforms the input data using `TfidfVectorizer` and then fits the classifier. The trained pipeline is returned.
-
-### evaluate_model_skl method
-
-The `evaluate_model_skl` method evaluates a trained Scikit-learn classifier pipeline on a test set. It generates classification reports for different threshold values and returns these reports.
-
-### save_model_skl method
-
-The `save_model_skl` method saves a trained Scikit-learn classifier pipeline and a MultiLabelBinarizer to disk. It optionally also saves evaluation reports. The location to save the model is provided by the `model_path` parameter.
-
-### load_model_skl method
-
-The `load_model_skl` method loads a Scikit-learn classifier pipeline and a MultiLabelBinarizer from disk. The location of the saved model is provided by the `model_path` parameter.
-
-### load_model_hf method
-
-The `load_model_hf` method loads a Hugging Face model, a tokenizer, and a MultiLabelBinarizer from disk. The location of the saved model is provided by the `model_path` parameter.
-
-### inference_model_skl method
-
-The `inference_model_skl` method takes a plot summary (or a list of plot summaries) and returns the genres predicted by the Scikit-learn classifier pipeline with a probability higher than a given threshold. 
-
-### inference_model_hf method
-
-The `inference_model_hf` method takes a plot summary and returns the genres predicted by a Hugging Face model with a probability higher than a given threshold. The model, tokenizer, MultiLabelBinarizer, plot summary, and threshold are all inputs to the method.
-
-
-### Data Filtering
-
-Based on the identified outliers, the notebook includes steps to filter out the movies that belong to these outlier genres from the dataset. This can help improve the performance of the subsequent machine learning modeling steps.
-
-This notebook provides a comprehensive analysis to identify and filter out outlier genres from the movie dataset, forming an important preprocessing step for the project.
 
 ## Machine Learning Approach Notebook: ml_approach.ipynb
 
@@ -179,14 +139,6 @@ The notebook includes steps for data preprocessing. This includes converting gen
 ### Model Training
 
 The notebook trains a OneVsRest classifier with a Linear SVM as the base estimator. The OneVsRest strategy is used for multi-label classification. In this approach, for each label, a separate binary classification model is trained. The Linear SVM was chosen as the base estimator due to its efficiency and effectiveness in high dimensional spaces, such as the one created by text data.
-
-### Model Evaluation
-
-The notebook evaluates the trained model using two metrics:
-
-- **Hamming Loss**: This is the fraction of labels that are incorrectly predicted, i.e., the fraction of the wrong labels to the total number of labels. It is suitable for multilabel problems.
-
-- **F1 Score**: The F1 score is the harmonic mean of precision and recall and provides a balance between these two metrics. It is a common metric for evaluating classification models, including multi-label classifiers.
 
 ### Threshold Optimization
 
@@ -205,15 +157,6 @@ This Jupyter notebook contains the Transformer-based approach for multi-label mo
 ### Model Training
 
 The notebook trains a BERT model for multi-label classification. Transformers, especially BERT, have been revolutionary in the field of Natural Language Processing due to their ability to capture the context of words in text data effectively.
-
-### Model Evaluation
-
-The notebook evaluates the trained model using two metrics:
-
-- **Hamming Loss**: This is the fraction of labels that are incorrectly predicted, i.e., the fraction of the wrong labels to the total number of labels. It is suitable for multilabel problems.
-
-- **F1 Score**: The F1 score is the harmonic mean of precision and recall and provides a balance between these two metrics. It is a common metric for evaluating classification models, including multi-label classifiers.
-
 
 ### Model Saving
 
